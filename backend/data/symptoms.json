@@ -1,0 +1,124 @@
+{
+  "symptoms": [
+    { "id": "fever", "label": "Fever", "keywords": ["fever", "temperature", "hot", "bukhar"] },
+    { "id": "headache", "label": "Headache", "keywords": ["headache", "head pain", "sir dard", "migraine"] },
+    { "id": "cough", "label": "Cough", "keywords": ["cough", "khansi", "coughing"] },
+    { "id": "cold", "label": "Cold / Runny Nose", "keywords": ["cold", "runny nose", "sneezing", "sardi", "nazla"] },
+    { "id": "sore_throat", "label": "Sore Throat", "keywords": ["sore throat", "throat pain", "gale mein dard"] },
+    { "id": "body_ache", "label": "Body Ache", "keywords": ["body ache", "body pain", "badan dard", "muscle pain"] },
+    { "id": "vomiting", "label": "Vomiting / Nausea", "keywords": ["vomiting", "nausea", "ulti", "vomit", "feel sick"] },
+    { "id": "diarrhea", "label": "Diarrhea", "keywords": ["diarrhea", "loose motion", "dast", "stomach upset"] },
+    { "id": "chest_pain", "label": "Chest Pain", "keywords": ["chest pain", "seene mein dard", "heart pain", "chest tight"] },
+    { "id": "breathlessness", "label": "Breathlessness", "keywords": ["breathless", "difficulty breathing", "saans lene mein takleef", "short of breath"] },
+    { "id": "dizziness", "label": "Dizziness", "keywords": ["dizzy", "dizziness", "chakkar", "lightheaded"] },
+    { "id": "rash", "label": "Skin Rash", "keywords": ["rash", "skin rash", "itching", "khujli", "red spots"] },
+    { "id": "stomach_pain", "label": "Stomach Pain", "keywords": ["stomach pain", "pet dard", "abdominal pain", "cramps"] },
+    { "id": "weakness", "label": "Weakness / Fatigue", "keywords": ["weakness", "fatigue", "kamzori", "tired", "no energy"] },
+    { "id": "high_fever", "label": "High Fever (>103°F)", "keywords": ["high fever", "very high temperature", "103", "104", "105"] },
+    { "id": "unconscious", "label": "Unconsciousness", "keywords": ["unconscious", "fainted", "behoshi", "passed out", "not responding"] },
+    { "id": "bleeding", "label": "Heavy Bleeding", "keywords": ["bleeding", "blood", "heavy bleeding", "khoon"] },
+    { "id": "seizure", "label": "Seizure / Fits", "keywords": ["seizure", "fits", "mircchi", "convulsion"] }
+  ],
+
+  "rules": [
+    {
+      "id": "common_cold",
+      "name": "Common Cold / Viral",
+      "matchSymptoms": ["cold", "cough", "sore_throat", "headache"],
+      "minMatch": 2,
+      "excludeSymptoms": ["chest_pain", "breathlessness", "high_fever"],
+      "severity": "monitor",
+      "message": "Looks like a common cold or mild viral infection.",
+      "advice": "Rest well, drink warm fluids, and take OTC paracetamol if needed. Monitor for 2–3 days.",
+      "seeDoctor": false
+    },
+    {
+      "id": "viral_fever",
+      "name": "Viral Fever",
+      "matchSymptoms": ["fever", "body_ache", "weakness", "headache"],
+      "minMatch": 2,
+      "excludeSymptoms": ["chest_pain", "breathlessness", "unconscious"],
+      "severity": "monitor",
+      "message": "Likely a viral fever.",
+      "advice": "Take paracetamol, rest, and stay hydrated. If fever persists beyond 3 days or crosses 103°F, see a doctor.",
+      "seeDoctor": false
+    },
+    {
+      "id": "stomach_infection",
+      "name": "Stomach Infection / Food Poisoning",
+      "matchSymptoms": ["vomiting", "diarrhea", "stomach_pain"],
+      "minMatch": 2,
+      "excludeSymptoms": ["chest_pain", "breathlessness"],
+      "severity": "see_doctor",
+      "message": "Possible stomach infection or food poisoning.",
+      "advice": "Stay hydrated with ORS water. Avoid solid food for a few hours. See a doctor if vomiting continues for more than 12 hours.",
+      "seeDoctor": true
+    },
+    {
+      "id": "high_fever_alert",
+      "name": "High Fever",
+      "matchSymptoms": ["high_fever"],
+      "minMatch": 1,
+      "excludeSymptoms": [],
+      "severity": "see_doctor",
+      "message": "High fever detected. This needs medical attention.",
+      "advice": "Do not delay. Visit a nearby clinic or government hospital. Take paracetamol to reduce fever while travelling.",
+      "seeDoctor": true
+    },
+    {
+      "id": "respiratory_issue",
+      "name": "Respiratory Issue",
+      "matchSymptoms": ["breathlessness", "chest_pain", "cough"],
+      "minMatch": 2,
+      "excludeSymptoms": [],
+      "severity": "emergency",
+      "message": "Breathing difficulty with chest pain is a serious warning sign.",
+      "advice": "Go to the nearest emergency room immediately. Do not wait.",
+      "seeDoctor": true
+    },
+    {
+      "id": "cardiac_emergency",
+      "name": "Possible Cardiac Emergency",
+      "matchSymptoms": ["chest_pain", "breathlessness", "dizziness"],
+      "minMatch": 2,
+      "excludeSymptoms": [],
+      "severity": "emergency",
+      "message": "These symptoms could indicate a heart-related emergency.",
+      "advice": "Call 108 immediately or reach the nearest emergency hospital. Do not drive yourself.",
+      "seeDoctor": true
+    },
+    {
+      "id": "neurological_emergency",
+      "name": "Neurological Emergency",
+      "matchSymptoms": ["unconscious", "seizure"],
+      "minMatch": 1,
+      "excludeSymptoms": [],
+      "severity": "emergency",
+      "message": "This is a medical emergency.",
+      "advice": "Call 108 immediately. Do not leave the person alone. Turn them to their side if unconscious.",
+      "seeDoctor": true
+    },
+    {
+      "id": "dengue_suspect",
+      "name": "Suspected Dengue / Malaria",
+      "matchSymptoms": ["fever", "body_ache", "rash", "weakness"],
+      "minMatch": 3,
+      "excludeSymptoms": [],
+      "severity": "see_doctor",
+      "message": "Your symptoms match patterns of dengue or malaria, which are common in India.",
+      "advice": "Visit a government hospital for a blood test (CBC). Avoid self-medication. Stay hydrated.",
+      "seeDoctor": true
+    },
+    {
+      "id": "mild_headache",
+      "name": "Mild Headache / Stress",
+      "matchSymptoms": ["headache"],
+      "minMatch": 1,
+      "excludeSymptoms": ["fever", "vomiting", "chest_pain", "breathlessness", "unconscious"],
+      "severity": "monitor",
+      "message": "Mild headache — likely due to stress, dehydration, or screen time.",
+      "advice": "Drink water, rest your eyes, and take a break. Take OTC painkiller if needed. See a doctor if it persists more than 2 days.",
+      "seeDoctor": false
+    }
+  ]
+}
